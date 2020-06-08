@@ -1,6 +1,8 @@
 # Intro to Julia for Dynamical Systems and Scientific Machine Learning
 Codes used for a 1 hour overview of Julia for Dynamical Systems and Scientific Machine Learning, given at the Dynamical Systems Reading Group of Mila.
 
+Before starting, please install Julia and Atom+Juno, following [this instructions](http://docs.junolab.org/stable/man/installation/).
+
 
 ### Credit
 Some of the material of this talk was created by the author (Germán Abrevaya). However significant content comes from the following sources:
