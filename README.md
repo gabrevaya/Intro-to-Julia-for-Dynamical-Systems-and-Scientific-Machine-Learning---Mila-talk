@@ -5,12 +5,12 @@ Codes used for a 1 hour overview of Julia for Dynamical Systems and Scientific M
 ### Credit
 Some of the material of this talk was created by the author (Germán Abrevaya). However significant content comes from the following sources:
 
-* George Datseris' workshop https://github.com/Datseris/Zero2Hero-JuliaWorkshop
-* Jesse Bettencourt's intro-tutorial https://github.com/ProbMLCourse/intro-tutorial
-* Aurelio Amerio's From zero to Julia! https://techytok.com/from-zero-to-julia/
-* Julius Martensen's DataDrivenDiffEq.jl documentation https://datadriven.sciml.ai/
-* Chris Rackauckas' DiffEqFlux.jl documentation https://diffeqflux.sciml.ai/
-* Universal Diffrential Equations codes https://github.com/ChrisRackauckas/universal_differential_equations
+* [George Datseris' workshop](https://github.com/Datseris/Zero2Hero-JuliaWorkshop)
+* [Jesse Bettencourt's intro-tutorial](https://github.com/ProbMLCourse/intro-tutorial)
+* [Aurelio Amerio's From zero to Julia!](https://techytok.com/from-zero-to-julia/)
+* [Julius Martensen's DataDrivenDiffEq.jl documentation](https://datadriven.sciml.ai/)
+* [Chris Rackauckas' DiffEqFlux.jl documentation](https://diffeqflux.sciml.ai/)
+* [Universal Diffrential Equations paper's codes](https://github.com/ChrisRackauckas/universal_differential_equations)
 
 
 
