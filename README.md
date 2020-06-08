@@ -25,7 +25,7 @@ The following is written by George Datseris.
 
 The following **facts** about Julia justify why so many scientists are willing to learn a new language:
 
-- Performance as good as C/Fortran
+- [Performance as good as C/Fortran](https://julialang.org/benchmarks/)
 - Dynamic, interactive language like Python or Matlab
 - Intuitive, expressive and high-level syntax
 - General purpose as well as scientific computing
