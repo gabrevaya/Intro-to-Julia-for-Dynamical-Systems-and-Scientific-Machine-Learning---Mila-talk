@@ -1,4 +1,4 @@
-# Intro-to-Julia-for-Dynamical-Systems-and-Scientific-Machine-Learning---Mila-talk
+# Intro to Julia for Dynamical Systems and Scientific Machine Learning
 Codes used for a 1 hour overview of Julia for Dynamical Systems and Scientific Machine Learning, given at the Dynamical Systems Reading Group of Mila.
 
 
