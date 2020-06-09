@@ -145,6 +145,7 @@ B_re = reshape(B,3,4,:)
 
 B_vec = vec(B_re)
 
+# note that vec and reshape create views of the matrix
 B_vec[3] = 999
 B
 B_re
@@ -261,6 +262,7 @@ f(x) = x^2   # equivalent to above
 h = x -> x^2
 
 f(5)
+h(5)
 
 # Functions in Julia support optional positional arguments, as  well as
 # keyword arguments. The positional arguments are always given by their order,
@@ -273,6 +275,35 @@ g(5, 3)             # give x, y. default z
 g(5, z = 3)         # give x, z. default y
 g(2, 4, z = 1.5)    # give everything
 g(2, 4, 2)          # keyword arguments can't be specified by position
+
+
+# Multiple dispatch is the core programming paradigm of Julia.
+#
+# function: the name of the "function / process" we are referring to.
+# method: what actually happens when we call the function with a specific
+# combination of arguments.
+#
+# Dispatch means that when a function call occurs, the language decides
+# somehow which of the function methods have to be used.
+
+f(x) = x^2
+f(x::Float64) = "hi"
+f(x, y) = "hola"
+f(x, y::Int) = "bonjour"
+f(x::String, y::Int) = x*y
+
+methods(f)
+f(2.)
+f(2)
+f(2.,2.)
+f(2.0,2.0)
+f("Mila", 2)
+
+methods(+)
+
+# To grasp the power behind multiple dispatch and how it enables a lot of code
+# reusability and compatibility between different packages, please watch
+# https://youtu.be/kc9HwsxE1OY
 
 
 ### Control Flow
