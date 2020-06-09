@@ -35,7 +35,6 @@ print(x += 2)
 😺, 😀, 😞 = 1, 0, -1 # do e.g. \:smile: <TAB>
 😺 + 😞 == 😀
 
-🌹= 12
 typeof(😺)
 typeof(1.5)
 typeof("asdf")
@@ -129,7 +128,7 @@ A'
 # Concatenate horizontally
 hcat(v,v)
 # or
-[a a]
+[v v]
 
 # Concatenate vertically
 vcat(v,v)
@@ -249,20 +248,17 @@ norm(rand(5,5))
 
 ### Functions
 
-# there are a few ways to define functions
+# You can define them in the following ways:
+
 # in a block, this is most common
 function f(x)
     return x^2     # return word is not necessary
 end                # by default, the last executed expression is returned
 
 # inline, very nice for quick math!
-f(x) = x^2   # equivalent to above
-
-# anonymous, very nice for temporary functions
-h = x -> x^2
+f(x) = x^2
 
 f(5)
-h(5)
 
 # Functions in Julia support optional positional arguments, as  well as
 # keyword arguments. The positional arguments are always given by their order,
@@ -278,26 +274,23 @@ g(2, 4, 2)          # keyword arguments can't be specified by position
 
 
 # Multiple dispatch is the core programming paradigm of Julia.
-#
-# function: the name of the "function / process" we are referring to.
-# method: what actually happens when we call the function with a specific
-# combination of arguments.
-#
-# Dispatch means that when a function call occurs, the language decides
-# somehow which of the function methods have to be used.
 
-f(x) = x^2
-f(x::Float64) = "hi"
-f(x, y) = "hola"
-f(x, y::Int) = "bonjour"
-f(x::String, y::Int) = x*y
+f(x::Any) = "x is Any"
+f(x::Number) = "x is a Number"
+f(x::Float32) = "x is a Float32"
+
+f(2)
+f("hey")
+f(Float32(3.0))
 
 methods(f)
-f(2.)
-f(2)
-f(2.,2.)
-f(2.0,2.0)
-f("Mila", 2)
+
+f(x::Float64, y::Float64) = 2x + y
+
+f(1.0, 2.0)
+f(1.0, 1)
+
+f(x::Number, y::Number) = 2x + y
 
 methods(+)
 
@@ -309,12 +302,13 @@ methods(+)
 ### Control Flow
 
 # if...else blocks
-function absolute(x)
-    if x ≥ 0
-        return x
-    else
-        return -x
-    end
+
+x = -2
+
+if x ≥ 0
+    return x
+else
+    return -x
 end
 
 # You can have multiple elseif
@@ -355,7 +349,7 @@ for i ∈ [1,2,3,4,5]
     if i ≈ 2.99999999
         break
     else
-        println(f(i))
+        println(i)
     end
 end
 
@@ -393,7 +387,7 @@ a ≡ a
 # Note that if we create a new variable from another one like this
 c = a
 # (similar to python but opposite to matlab)
-# it only creates a copy by reference, so 'a' and 'b' refers to the same object
+# it only creates a copy by reference, so 'a' and 'c' refers to the same object
 c ≡ a
 c[1] = 999
 a
@@ -423,8 +417,8 @@ using Plots
 # There's a few ways to plot a function y = f(x)
 # 1. make the ys by calling f on the xs
 xs = 0:0.01:20
-f(x) = sin.(x)
-ys = f(xs)
+g(xs) = sin.(xs)
+ys = g(xs)
 # then plot
 plot(xs, ys)
 # look in the Plots pane of Atom
@@ -440,7 +434,7 @@ plot(xs, ys,
 plot!(xs, cos.(xs), label="cos")
 
 # 2. You can use the function directly
-plot(xs, f)
+plot(g, xs)
 plot([sin,cos], 0, 2π)
 
 # There are many other kinds of plots
@@ -453,7 +447,7 @@ savefig("my_distributions.pdf")
 
 
 p = plot(1)
-@gif for x=0:0.1:5
+@gif for x=0:0.1:5π
   push!(p, 1, sin(x))
 end
 
@@ -479,9 +473,10 @@ gif(anim, "anim_fps15.gif", fps = 15)
 # Sources to learn Julia
 # https://julialang.org/learning/
 # https://docs.julialang.org/
-# https://juliadocs.github.io/Julia-Cheat-Sheet//
 # https://www.youtube.com/user/JuliaLanguage
 
+# Cheatsheet
+# https://juliadocs.github.io/Julia-Cheat-Sheet/
 
 
 ## Finding Help
@@ -490,115 +485,3 @@ gif(anim, "anim_fps15.gif", fps = 15)
 # https://discourse.julialang.org/
 # If your question has not been answered yet, try asking there!
 # This way future users can benefit from your questions
-
-
-
-## Extra
-
-# Type-stable code
-
-# When possible, it helps to ensure that a function always
-# returns a value of a type that depends only on the arguments
-# types so that the compiler can infer it.
-pos1(x) = x < 0 ? 0 : x
-pos2(x) = x < 0 ? zero(x) : x
-x = randn(100_000)
-@btime pos1.(x)
-@btime pos2.(x)
-
-# There is also a oneunit function, and a more general
-# oftype(x, y) function, which returns y converted to the type of x.
-
-
-function foo()
-    x = 1
-    for i = 1:100_000
-        x /= rand()
-    end
-    return x
-end
-
-function foo2()
-    x = 1.0
-    for i = 1:100_000
-        x /= rand()
-    end
-    return x
-end
-
-@btime foo()
-@btime foo2()
-
-
-@code_warntype foo()
-@code_warntype foo2()
-
-
-# Unicode
-α₀ = 2.0
-2π*√3 + 4α₀
-
-# Custom infix operators
-⋅(x,y) = x .* y
-x = [1 2 3]
-y = [4 5 6]
-x ⋅ y
-# Example QuantumOptics.jl
-
-#varargs functions
-bar(a,b,x...) = (a,b,x)
-bar(1,2,3,4,5,6)
-a = [1,2,3,4]
-#splatting
-bar(a...)
-
-#optional args
-f(x, y = 3.6) = x*y
-f(2)
-f(2,3)
-
-f(x, z=2; kwargs...) = (x,z,kwargs)
-f(1,2,3,3,4)
-f(1)
-f(1,pepe=5,Irina=6)
-
-# Broadcasting (dot-fusion)
-
-
-#composition
-# (f ∘ g)(args...) is the same as f(g(args...)).
-
-
-function fib(n)
-    if n ≤ 1
-        1
-    else
-        fib(n-1)+fib(n-2)
-    end
-end
-
-@btime fib(40)
-
-
-
-using DifferentialEquations, Plots
-
-function lorenz(u,p,t)
-    x, y, z = u
-    σ, ρ, β = p
-
-    ẋ = σ*(y - x)
-    ẏ = x*(ρ - z) - y
-    ż = x*y - β*z
-
-    return [ẋ, ẏ, ż]
-end
-
-u₀ = [1., 5., 10.]
-tspan = (0., 10.)
-p = [10.0, 28.0, 8/3]
-prob = ODEProblem(lorenz, u₀, tspan,p)
-sol = solve(prob)
-@time animate(sol, vars = (1,2,3), every=4, fps = 10)
-
-plot(sol)
